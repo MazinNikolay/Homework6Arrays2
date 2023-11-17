@@ -26,7 +26,7 @@ public class Main {
         return arr;
     }
 
-    public static int task1(int... arr) {
+    public static int task1(int[] arr) {
         int sumPayment = 0;
         for (int i : arr) {
             sumPayment += i;
@@ -35,7 +35,7 @@ public class Main {
         return sumPayment;
     }
 
-    public static void task2(int... arr) {
+    public static void task2(int[] arr) {
         int paymentMin = arr[0];
         int paymentMax = arr[0];
         for (int i : arr) {
@@ -56,7 +56,7 @@ public class Main {
         System.out.println("Средняя сумма трат за месяц составила " + avgPayment + " рублей");
     }
 
-    public static void task4(char... reverseFullName) {
+    public static void task4(char[] reverseFullName) {
         for (int i = reverseFullName.length - 1; i >= 0; i--) {
             System.out.print(reverseFullName[i]);
         }
@@ -106,26 +106,53 @@ public class Main {
     }
 
     public static void task8HardWork() {
-        int[] arr = {-6, 2, 5, -8, 8, 10, 4, -7, 12, 1};
+        int[] arr = {-6, 2, 1, -8, 8, 10, -4, -7, 12, 1};
         System.out.println(Arrays.toString(arr));
-        for (int i = 0; i < arr.length / 2; i++) {
-            for (int j : arr) {
-                if (arr[i] + j == -2) {
-                    System.out.println(arr[i] + " " + j);
-                }
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        int startPoint = 0;
+        int endPoint = arr.length - 1;
+        int arrValueStart = 0;
+        int halfPoint = arr.length / 2;
+        while (arr[arrValueStart] + arr[halfPoint] != -2) {
+            if (arr[arrValueStart] + arr[halfPoint] > -2 && startPoint < endPoint) {
+                endPoint = halfPoint - 1;
+            } else if (arr[arrValueStart] + arr[halfPoint] < -2 && startPoint < endPoint) {
+                startPoint = halfPoint + 1;
+            } else if (startPoint >= endPoint) {
+                arrValueStart++;
+                startPoint = arrValueStart + 1;
+                endPoint = arr.length - 1;
             }
+            halfPoint = (startPoint + endPoint) / 2;
         }
+        System.out.println(arr[arrValueStart] + " " + arr[halfPoint]);
     }
 
     public static void task9HardWork() {
         int[] arr = {-6, 2, 5, -8, 8, 10, 4, -7, -4, 1};
         System.out.println(Arrays.toString(arr));
-        for (int i = 0; i < arr.length / 2; i++) {
-            for (int j : arr) {
-                if (arr[i] + j == -2) {
-                    System.out.println(arr[i] + " " + j);
-                }
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        int startPoint = 0;
+        int endPoint = arr.length - 1;
+        int arrValueStart = 0;
+        int halfPoint = arr.length / 2;
+        while (arrValueStart < arr.length / 2) {
+            if (arr[arrValueStart] + arr[halfPoint] > -2 && startPoint < endPoint) {
+                endPoint = halfPoint - 1;
+            } else if (arr[arrValueStart] + arr[halfPoint] < -2 && startPoint < endPoint) {
+                startPoint = halfPoint + 1;
+            } else if (startPoint >= endPoint || arr[arrValueStart] + arr[halfPoint] == -2) {
+                if (arrValueStart < arr.length - 1) {
+                    arrValueStart++;
+                    startPoint = 0;
+                    endPoint = arr.length - 1;
+                } else break;
             }
+            halfPoint = (startPoint + endPoint) / 2;
+            if (arr[arrValueStart] + arr[halfPoint] == -2)
+                System.out.println(arr[arrValueStart] + " " + arr[halfPoint]);
         }
     }
 }
