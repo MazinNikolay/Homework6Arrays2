@@ -106,7 +106,7 @@ public class Main {
     }
 
     public static void task8HardWork() {
-        int[] arr = {-6, 2, 1, -8, 8, 10, -4, -7, 12, 1};
+        int[] arr = {-6, 2, 5, -8, 8, 10, 4, -7, 12, 1};
         System.out.println(Arrays.toString(arr));
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
@@ -114,12 +114,14 @@ public class Main {
         int endPoint = arr.length - 1;
         int arrValueStart = 0;
         int halfPoint = arr.length / 2;
+        boolean notFound;
         while (arr[arrValueStart] + arr[halfPoint] != -2) {
-            if (arr[arrValueStart] + arr[halfPoint] > -2 && startPoint < endPoint) {
+            notFound = startPoint >= endPoint;
+            if (arr[arrValueStart] + arr[halfPoint] > -2 && !notFound) {
                 endPoint = halfPoint - 1;
-            } else if (arr[arrValueStart] + arr[halfPoint] < -2 && startPoint < endPoint) {
+            } else if (arr[arrValueStart] + arr[halfPoint] < -2 && !notFound) {
                 startPoint = halfPoint + 1;
-            } else if (startPoint >= endPoint) {
+            } else if (notFound) {
                 arrValueStart++;
                 startPoint = arrValueStart + 1;
                 endPoint = arr.length - 1;
@@ -130,7 +132,7 @@ public class Main {
     }
 
     public static void task9HardWork() {
-        int[] arr = {-6, 2, 5, -8, 8, 10, 4, -7, -4, 1};
+        int[] arr = {-6, 2, 5, -8, 8, 10, 4, -7, 12, 1};
         System.out.println(Arrays.toString(arr));
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
@@ -138,21 +140,22 @@ public class Main {
         int endPoint = arr.length - 1;
         int arrValueStart = 0;
         int halfPoint = arr.length / 2;
+        boolean notFound;
+        boolean found;
         while (arrValueStart < arr.length / 2) {
-            if (arr[arrValueStart] + arr[halfPoint] > -2 && startPoint < endPoint) {
+            notFound = startPoint >= endPoint;
+            found = arr[arrValueStart] + arr[halfPoint] == -2;
+            if (arr[arrValueStart] + arr[halfPoint] > -2 && !notFound) {
                 endPoint = halfPoint - 1;
-            } else if (arr[arrValueStart] + arr[halfPoint] < -2 && startPoint < endPoint) {
+            } else if (arr[arrValueStart] + arr[halfPoint] < -2 && !notFound) {
                 startPoint = halfPoint + 1;
-            } else if (startPoint >= endPoint || arr[arrValueStart] + arr[halfPoint] == -2) {
-                if (arrValueStart < arr.length - 1) {
-                    arrValueStart++;
-                    startPoint = 0;
-                    endPoint = arr.length - 1;
-                } else break;
-            }
+            } else if (notFound || found) {
+                if (found) System.out.println(arr[arrValueStart] + " " + arr[halfPoint]);
+                arrValueStart++;
+                startPoint = 0;
+                endPoint = arr.length - 1;
+            } else System.out.println("Элементы удовлетворяющие условию не найдены");
             halfPoint = (startPoint + endPoint) / 2;
-            if (arr[arrValueStart] + arr[halfPoint] == -2)
-                System.out.println(arr[arrValueStart] + " " + arr[halfPoint]);
         }
     }
 }
