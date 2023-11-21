@@ -134,6 +134,15 @@ public class Main {
     public static void task9HardWork() {
         int[] arr = {-6, 2, 5, -8, 8, 10, 4, -7, 12, 1};
         System.out.println(Arrays.toString(arr));
+        /* Этот код будет долго работать, далее переделал на бинарный поиск
+        for (int i = 0; i < arr.length / 2; i++) {
+            for (int j = i + 1; i < arr.length; j++) {
+                if (arr[i] + arr[j] == -2) {
+                    System.out.println(arr[i] + " " + arr[j]);
+                }
+            }
+        }
+        */
         Arrays.sort(arr);
         System.out.println(Arrays.toString(arr));
         int startPoint = 0;
